@@ -2,15 +2,15 @@
 // Use of this source code is governed by The MIT License (MIT) that can be
 // found in the LICENSE file.
 
-import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter/services.dart';
-import 'package:beacon_monitoring_platform_interface/beacon_monitoring_platform_interface.dart';
-import 'package:beacon_monitoring_platform_interface/src/method_channel_beacon_monitoring.dart';
-import 'package:beacon_monitoring_platform_interface/src/config.dart';
-import 'package:beacon_monitoring_platform_interface/src/model.dart';
 import 'dart:ui';
+
+import 'package:beacon_monitoring_platform_interface/beacon_monitoring_platform_interface.dart';
+import 'package:beacon_monitoring_platform_interface/src/config.dart';
+import 'package:beacon_monitoring_platform_interface/src/method_channel_beacon_monitoring.dart';
+import 'package:beacon_monitoring_platform_interface/src/model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 const _defaultResponses = <String, dynamic>{
   Config.setDebug: null,
@@ -64,8 +64,10 @@ void main() {
 
   group('$BeaconMonitoringPlatform', () {
     test('$MethodChannelBeaconMonitoring is the default instance', () {
-      expect(BeaconMonitoringPlatform.instance,
-          isInstanceOf<MethodChannelBeaconMonitoring>());
+      expect(
+        BeaconMonitoringPlatform.instance,
+        isInstanceOf<MethodChannelBeaconMonitoring>(),
+      );
     });
   });
 
@@ -93,7 +95,7 @@ void main() {
 
     [true, false].forEach((value) {
       test('${Config.setDebug} -> $value', () async {
-        final result = await beaconMonitoring.setDebug(value);
+        await beaconMonitoring.setDebug(value);
         expect(
           log,
           <Matcher>[isMethodCall(Config.setDebug, arguments: value)],
@@ -107,7 +109,7 @@ void main() {
         final result = await beaconMonitoring.isBluetoothEnabled;
         expect(
           log,
-          <Matcher>[isMethodCall(Config.isBluetoothEnabled)],
+          <Matcher>[isMethodCall(Config.isBluetoothEnabled, arguments: null)],
         );
         expect(
           result,
@@ -120,7 +122,7 @@ void main() {
       await beaconMonitoring.openBluetoothSettings();
       expect(
         log,
-        <Matcher>[isMethodCall(Config.openBluetoothSettings)],
+        <Matcher>[isMethodCall(Config.openBluetoothSettings, arguments: null)],
       );
     });
 
@@ -135,7 +137,9 @@ void main() {
         var result = await beaconMonitoring.checkLocationPermission();
         expect(
           log,
-          <Matcher>[isMethodCall(Config.checkLocationPermission)],
+          <Matcher>[
+            isMethodCall(Config.checkLocationPermission, arguments: null),
+          ],
         );
         expect(
           result,
@@ -148,7 +152,9 @@ void main() {
       await beaconMonitoring.requestLocationPermission();
       expect(
         log,
-        <Matcher>[isMethodCall(Config.requestLocationPermission)],
+        <Matcher>[
+          isMethodCall(Config.requestLocationPermission, arguments: null),
+        ],
       );
     });
 
@@ -158,7 +164,7 @@ void main() {
         final result = await beaconMonitoring.isLocationEnabled;
         expect(
           log,
-          <Matcher>[isMethodCall(Config.isLocationEnabled)],
+          <Matcher>[isMethodCall(Config.isLocationEnabled, arguments: null)],
         );
         expect(
           result,
@@ -171,7 +177,7 @@ void main() {
       await beaconMonitoring.openLocationSettings();
       expect(
         log,
-        <Matcher>[isMethodCall(Config.openLocationSettings)],
+        <Matcher>[isMethodCall(Config.openLocationSettings, arguments: null)],
       );
     });
 
@@ -179,7 +185,9 @@ void main() {
       await beaconMonitoring.openApplicationSettings();
       expect(
         log,
-        <Matcher>[isMethodCall(Config.openApplicationSettings)],
+        <Matcher>[
+          isMethodCall(Config.openApplicationSettings, arguments: null)
+        ],
       );
     });
 
@@ -199,8 +207,10 @@ void main() {
       expect(
         log,
         <Matcher>[
-          isMethodCall(Config.registerAllRegions,
-              arguments: _regions.toString().replaceAll(' ', ''))
+          isMethodCall(
+            Config.registerAllRegions,
+            arguments: _regions.toString().replaceAll(' ', ''),
+          ),
         ],
       );
     });
@@ -221,8 +231,10 @@ void main() {
       expect(
         log,
         <Matcher>[
-          isMethodCall(Config.removeAllRegions,
-              arguments: _regions.toString().replaceAll(' ', ''))
+          isMethodCall(
+            Config.removeAllRegions,
+            arguments: _regions.toString().replaceAll(' ', ''),
+          ),
         ],
       );
     });
@@ -233,7 +245,7 @@ void main() {
         final result = await beaconMonitoring.isMonitoringStarted;
         expect(
           log,
-          <Matcher>[isMethodCall(Config.isMonitoringStarted)],
+          <Matcher>[isMethodCall(Config.isMonitoringStarted, arguments: null)],
         );
         expect(
           result,
@@ -291,7 +303,12 @@ void main() {
       await beaconMonitoring.stopBackgroundMonitoring();
       expect(
         log,
-        <Matcher>[isMethodCall(Config.stopBackgroundMonitoring)],
+        <Matcher>[
+          isMethodCall(
+            Config.stopBackgroundMonitoring,
+            arguments: null,
+          ),
+        ],
       );
     });
 

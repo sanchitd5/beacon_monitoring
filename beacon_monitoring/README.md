@@ -140,3 +140,11 @@ if (Platform.isAndroid) {
     if(!bluetoothEnalbed || !locationEnabled) openApplicationSettings();
 }
 ```
+
+## From the Team
+
+At Objectivity we are very busy delivering innovative and modern solutions to our customers. Still, we will do our best to respond to your questions and close the issues, if any. We tried to cover the code with Unit Tests the best we could.
+
+Please, be patient when requesting some help.
+
+We hope you like it.

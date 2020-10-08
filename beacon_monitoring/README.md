@@ -1,6 +1,7 @@
  # beacon_monitoring
 
-A Flutter plugin for monitoring beacons in the mobile platform. Supports iOS and Android.
+A Flutter plugin for monitoring beacons on mobile platforms.
+Supports iOS and Android.
 
 # Usage
 
@@ -14,17 +15,16 @@ dependencies:
 ```
 
 ## Description
-The beacon monitoring plugin can execute monitoring as a foreground and background. The approach to 
-implementing this method is a little different. The main difference belongs to the ways how we want to use it.
+The *beacon_monitoring* plugin can monitor for beacons while the app works in the foreground and in the background mode.
 
-Foreground monitoring we can do by intercept event populate by stream like below:
+The foreground monitoring we do by intercepting the events produced by a stream as presented below:
 ```dart
 monitoring().listen((event) {
     print("Monitoring stream received: $event");  
 });
 ``` 
 
-Background monitoring needs an implementation of the callback method and pass it as an argument to startBackgroundMonitoring method as below:
+For the background monitoring we need to implementat the callback method and pass it as an argument to *startBackgroundMonitoring* method:
 ```dart
 void backgroundMonitoringCallback(MonitoringResult result) {
     print('Background monitoring received: $result');
@@ -33,10 +33,10 @@ void backgroundMonitoringCallback(MonitoringResult result) {
 startBackgroundMonitoring(backgroundMonitoringCallback);
 ```
 
-You can find full code with usage examples for the foreground and background in the project example.
+You can find the full code with usage examples for the foreground and background mode in the project example folder.
 
-## How to usage
-The first thing you should do is to register the regions. The region is represented by beacon's identifier and its ids (ids is optional).
+## How to use
+First, register the monitored regions. The region is represented by beacon's identifier and its ids (ids are optional).
 
 Let's assume that we have two iBeacons:
 ```
@@ -44,7 +44,7 @@ iBeacon one: UUID: 400CD186-C779-024B-2F19-89DCF74987E9
 iBeacon two: UUID: D66BA202-6589-677F-C735-17E3856F065C
 ```
 
-Registering the beacons in our plugin can be done as presented below:
+Registering these beacons in our plugin can be done as presented below:
 ```dart
 import 'package:beacon_monitoring/beacon_monitoring.dart';
 
@@ -63,7 +63,7 @@ void activateBeacon() async{
 }
 ```
 
-Now we have to implement callback where we handle all events from beacons.
+Now, we have to implement the callback code where we handle all the events from beacons.
 ```dart
 // beacons are handled by this method
 static void handleEventCallback(MonitoringResult result) {
@@ -104,15 +104,20 @@ static void handleEventCallback(MonitoringResult result) {
 }
 ```
 
-From now on, each event related with registered beacon will be handled by `handleEventCallback` method.
-if we come into a range of a beacon, the method `handleEventCallback` will be invoked with data in MonitoringResult.
+From now on, each event related with the registered beacon will be handled by `handleEventCallback` method.
+If we come in a range of a beacon, the method `handleEventCallback` will be invoked with data in `MonitoringResult`.
 
 ## Additional info
 
-The plugin to work requires Bluetooth and Location to be enabled. The plugin delivers methods for handling this case.
-Bluetooth can be checked using `isBluetoothEnabled()` method and turn on by `openBluetoothSettings()` method for Android and `openApplicationSettings()` for iOS.
-Location can be checked using `isLocationEnabled()` method and turn on by `openLocationSettings()` method for Android and `openApplicationSettings()` for iOS.
-Similar approach can be used to location. Plugin has `checkLocationPermission()`, `requestLocationPermission()` and `openLocationSettings()`.
+To be able to monitor the beacons both, the Bluetooth and Location need to be turned on and available for the app.
+
+The plugin delivers methods to handle the fact of asking for the required permission.
+
+Bluetooth can be checked using `isBluetoothEnabled()` method and turned on with `openBluetoothSettings()` method for Android and `openApplicationSettings()` for iOS.
+
+Location can be checked using `isLocationEnabled()` method and turned on with `openLocationSettings()` method for Android and `openApplicationSettings()` for iOS.
+
+Similar approach applies to requesting Location permissions. The plugin delivers the functions `checkLocationPermission()` and `requestLocationPermission()`.
 
 Example:
 ```dart

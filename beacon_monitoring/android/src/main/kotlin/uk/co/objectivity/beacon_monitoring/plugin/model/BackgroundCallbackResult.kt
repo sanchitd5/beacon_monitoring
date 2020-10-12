@@ -8,6 +8,8 @@ import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 
 fun BackgroundCallbackResult.toJson(): String = Moshi.Builder()
+        .add(MonitoringEvent.Adapter())
+        .add(MonitoringState.Adapter())
         .build()
         .adapter(BackgroundCallbackResult::class.java)
         .toJson(this)

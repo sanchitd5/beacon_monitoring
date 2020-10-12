@@ -56,6 +56,8 @@ class BeaconMonitoringPlugin : FlutterPlugin, ActivityAware {
 
     override fun onDetachedFromEngine(binding: FlutterPlugin.FlutterPluginBinding) {
         methodChannel.setMethodCallHandler(null)
+        dependencyContainer.monitoringService.monitoringNotifier = null
+        dependencyContainer.monitoringService.rangingNotifier = null
 
         eventChannels.forEach { it.setStreamHandler(null) }
         eventChannels.clear()

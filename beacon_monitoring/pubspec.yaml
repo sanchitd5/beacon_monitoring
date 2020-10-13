@@ -8,8 +8,7 @@ environment:
   flutter: ">=1.10.0"
 
 dependencies:
-  beacon_monitoring_platform_interface:
-    path: ../beacon_monitoring_platform_interface/
+  beacon_monitoring_platform_interface: ^1.0.0-dev.1
   flutter:
     sdk: flutter
 

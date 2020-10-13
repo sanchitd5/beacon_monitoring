@@ -64,9 +64,11 @@ void activateBeacon() async{
 ```
 
 Now, we have to implement the callback code where we handle all the events from beacons.
+Callback event handler must be a static method or a function (cannot be an anonymous function or an object method).
+You can learn more about the background processes in Flutter at [background-processes](https://flutter.dev/docs/development/packages-and-plugins/background-processes)
 ```dart
 // beacons are handled by this method
-static void handleEventCallback(MonitoringResult result) {
+void handleEventCallback(MonitoringResult result) {
     print(result.type);
 }
 ```
@@ -99,7 +101,7 @@ void activateBeacon() async{
 }
 
 // beacons are handled by this method
-static void handleEventCallback(MonitoringResult result) {
+void handleEventCallback(MonitoringResult result) {
     print('$result');
 }
 ```

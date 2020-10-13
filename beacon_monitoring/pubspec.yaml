@@ -1,6 +1,6 @@
 name: beacon_monitoring
 description: Implementation of beacon_monitoring_platform_interface for Android and iOS platforms.
-version: 1.0.0-dev.2
+version: 1.0.0
 homepage: https://github.com/ObjectivityLtd/beacon_monitoring
 
 environment:
@@ -8,7 +8,7 @@ environment:
   flutter: ">=1.10.0"
 
 dependencies:
-  beacon_monitoring_platform_interface: ^1.0.0-dev.2
+  beacon_monitoring_platform_interface: ^1.0.0
   flutter:
     sdk: flutter
 

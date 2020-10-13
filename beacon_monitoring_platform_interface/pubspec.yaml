@@ -1,6 +1,6 @@
 name: beacon_monitoring_platform_interface
 description: A common platform interface for the beacon_monitoring plugin.
-version: 1.0.0-dev.1
+version: 1.0.0-dev.2
 homepage: https://github.com/ObjectivityLtd/beacon_monitoring
 
 environment:

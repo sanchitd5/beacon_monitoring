@@ -10,13 +10,10 @@ class Config {
   static const String setDebug = 'setDebug';
   static const String isBluetoothEnabled = 'isBluetoothEnabled';
   static const String openBluetoothSettings = 'openBluetoothSettings';
-  static const String checkLocationPermission =
-      'checkLocationPermission';
-  static const String requestLocationPermission =
-      'requestLocationPermission';
+  static const String checkLocationPermission = 'checkLocationPermission';
+  static const String requestLocationPermission = 'requestLocationPermission';
   static const String isLocationEnabled = 'isLocationEnabled';
-  static const String openLocationSettings =
-      'openLocationSettings';
+  static const String openLocationSettings = 'openLocationSettings';
   static const String openApplicationSettings = 'openApplicationSettings';
   static const String registerRegion = 'registerRegion';
   static const String registerAllRegions = 'registerAllRegions';
@@ -27,8 +24,7 @@ class Config {
   static const String stopBackgroundMonitoring = 'stopBackgroundMonitoring';
 
   static const String bluetoothDisabledExceptionCode = 'bluetoothDisabled';
-  static const String locationDisabledExceptionCode =
-      'locationDisabled';
+  static const String locationDisabledExceptionCode = 'locationDisabled';
   static const String locationPermissionDeniedExceptionCode =
       'locationPermissionDenied';
 

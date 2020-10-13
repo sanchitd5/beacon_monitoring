@@ -2,7 +2,6 @@
 // Use of this source code is governed by The MIT License (MIT) that can be
 // found in the LICENSE file.
 
-
 import 'package:beacon_monitoring_platform_interface/beacon_monitoring_platform_interface.dart';
 
 export 'package:beacon_monitoring_platform_interface/beacon_monitoring_platform_interface.dart';
@@ -78,7 +77,8 @@ Future<bool> isMonitoringStarted() =>
 Future<void> startBackgroundMonitoring(
   void Function(MonitoringResult result) monitoringCallback,
 ) =>
-    BeaconMonitoringPlatform.instance.startBackgroundMonitoring(monitoringCallback);
+    BeaconMonitoringPlatform.instance
+        .startBackgroundMonitoring(monitoringCallback);
 
 /// Terminates background beacon monitoring service.
 Future<void> stopBackgroundMonitoring() =>

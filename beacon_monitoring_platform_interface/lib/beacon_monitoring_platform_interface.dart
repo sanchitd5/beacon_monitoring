@@ -94,7 +94,7 @@ abstract class BeaconMonitoringPlatform extends PlatformInterface {
   /// [LocationDisabledException] is thrown when location is disabled.
   /// [LocationPermissionDeniedException] is thrown when we don't have accurate permissions to location.
   ///
-  /// Param [monitoringCallback] must be a static function.
+  /// Param [monitoringCallback] must be a static method or a function (cannot be an anonymous function or an object method).
   Future<void> startBackgroundMonitoring(
     void Function(MonitoringResult result) monitoringCallback,
   ) =>

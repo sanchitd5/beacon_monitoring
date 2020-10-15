@@ -20,7 +20,7 @@ public class BeaconMonitoringPlugin: FlutterPluginAppLifeCycleDelegate {
     private init(registrar: FlutterPluginRegistrar) {
         monitoringBackgroundHandler = MonitoringBackgroundHandler(
             beaconService: dependencyContainer.beaconService,
-            registrar: registrar)
+            preferencesStorage: dependencyContainer.preferencesStorage)
 
         super.init()
         self.setupDependencies()

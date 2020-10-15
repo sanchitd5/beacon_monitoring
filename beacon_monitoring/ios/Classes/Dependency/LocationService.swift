@@ -33,14 +33,21 @@ final class LocationService: NSObject {
     weak var delegate: LocationServiceDelegate?
 
     // MARK: - Private Properties
-    private lazy var locationManager: CLLocationManager = {
-        let locationManager = CLLocationManager()
-        locationManager.delegate = self
+    private let locationManager = CLLocationManager()
+
+    // MARK: - Instance Initialization
+    override init() {
+        super.init()
+        setupLocationManager()
+    }
+
+    // MARK: - Private Methods
+    private func setupLocationManager() {
         locationManager.pausesLocationUpdatesAutomatically = false
         locationManager.startMonitoringSignificantLocationChanges()
         locationManager.allowsBackgroundLocationUpdates = true
-        return locationManager
-    }()
+        locationManager.delegate = self
+    }
 
 }
 

@@ -14,6 +14,89 @@ dependencies:
   beacon_monitoring: latest
 ```
 
+##  iOS Setup
+
+#### 1. Update Info.plist
+> For deployment targets earlier than iOS 13, add both NSBluetoothAlwaysUsageDescription and NSBluetoothPeripheralUsageDescription to your app’s Information Property List file. Devices running earlier versions of iOS rely on NSBluetoothPeripheralUsageDescription, while devices running later versions rely on NSBluetoothAlwaysUsageDescription. [Read on Apple Documentation](https://developer.apple.com/documentation/bundleresources/information_property_list/nsbluetoothperipheralusagedescription)
+
+* [NSLocationAlwaysAndWhenInUseUsageDescription](https://developer.apple.com/documentation/bundleresources/information_property_list/nslocationalwaysandwheninuseusagedescription)
+* [NSLocationWhenInUseUsageDescription](https://developer.apple.com/documentation/bundleresources/information_property_list/nslocationwheninuseusagedescription)
+* [NSBluetoothAlwaysUsageDescription](https://developer.apple.com/documentation/bundleresources/information_property_list/nsbluetoothalwaysusagedescription)
+* [NSBluetoothPeripheralUsageDescription](https://developer.apple.com/documentation/bundleresources/information_property_list/nsbluetoothperipheralusagedescription)
+
+Go to information property list `Info.plist` and add keys with human-readable messages (`Info.plist -> Open as -> Source Code`): 
+
+```
+<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+<string>A message that tells the user why the app is requesting access to the user’s location information at all times.</string>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>A message that tells the user why the app is requesting access to the user’s location information while the app is running in the foreground.</string>
+<key>NSBluetoothAlwaysUsageDescription</key>
+<string>A message that tells the user why the app needs access to Bluetooth.</string>
+<key>NSBluetoothPeripheralUsageDescription</key>
+<string>A message that tells the user why the app is requesting the ability to connect to Bluetooth peripherals.</string>
+```
+#### 2. Update Capability
+1. Go to `Signing & Capabilities`
+2. Click `+ Capability`
+3. Add `Background Modes` capability
+4. Select `Location updates`
+
+#### 3. Update AppDelegate
+1. Open `AppDelegate.swift`
+2. Import `beacon_monitoring`
+2. Add static method to register plugins
+```swift
+static func registerPlugins(with registry: FlutterPluginRegistry) {
+  GeneratedPluginRegistrant.register(with: registry)
+}
+```
+3. Register your AppDelegate as a registry
+```swift 
+AppDelegate.registerPlugins(with: self)
+```
+4. Set `BeaconMonitoringPlugin` registrant callback
+```swift 
+BeaconMonitoringPlugin.setPluginRegistrantCallback { registry in
+  AppDelegate.registerPlugins(with: registry)
+}
+```
+
+So your `AppDelegate.swift` should look like: 
+```swift
+import UIKit
+import Flutter
+import beacon_monitoring
+
+@UIApplicationMain
+@objc class AppDelegate: FlutterAppDelegate {
+
+    // MARK: - UIApplicationDelegate Methods
+    override func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // ...
+        setupAppDelegateRegistry()
+        setupBeaconMonitoringPluginCallback()
+        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
+
+    // MARK: - Register Plugins
+    static func registerPlugins(with registry: FlutterPluginRegistry) {
+        GeneratedPluginRegistrant.register(with: registry)
+    }
+
+    // MARK: - Private Methods
+    private func setupAppDelegateRegistry() {
+        AppDelegate.registerPlugins(with: self)
+    }
+    private func setupBeaconMonitoringPluginCallback() {
+        BeaconMonitoringPlugin.setPluginRegistrantCallback { registry in
+            AppDelegate.registerPlugins(with: registry)
+        }
+    }
+}
+```
+
+
 ## Description
 The *beacon_monitoring* plugin can monitor for beacons while the app works in the foreground and in the background mode.
 

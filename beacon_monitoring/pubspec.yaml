@@ -1,5 +1,5 @@
 name: beacon_monitoring
-description: Implementation of beacon_monitoring_platform_interface for Android and iOS platforms.
+description: A Flutter plugin for monitoring beacons on mobile platforms. Supports iOS and Android.
 version: 1.0.0
 homepage: https://github.com/ObjectivityLtd/beacon_monitoring
 

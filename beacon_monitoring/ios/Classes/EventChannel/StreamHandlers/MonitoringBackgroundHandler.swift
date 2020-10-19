@@ -24,6 +24,7 @@ final class MonitoringBackgroundHandler: NSObject {
     // MARK: - Private Properties
     private let logger: NotificationService
     private let beaconService: BeaconService
+    private let preferencesStorage: PreferencesStorage
     private var backgroundFlutterEngine: FlutterEngine?
     private var backgroundMethodChannel: FlutterMethodChannel?
 
@@ -31,25 +32,32 @@ final class MonitoringBackgroundHandler: NSObject {
     private var pendingMonitoringResults: [FlutterMonitoringResult] = []
 
     // MARK: - Instance Initialization
-    init(beaconService: BeaconService, registrar: FlutterPluginRegistrar) {
+    init(beaconService: BeaconService, preferencesStorage: PreferencesStorage) {
         self.logger = NotificationService()
         self.beaconService = beaconService
+        self.preferencesStorage = preferencesStorage
         super.init()
+        continueBackgroundMonitoring()
     }
 
     // MARK: - Public Methods
     func startBackgroundMonitoring(onComplete: @escaping BeaconServiceStartMonitoringResult) {
         os_log()
-        beaconService.add(self)
+        setupBeaconServiceListener()
         beaconService.startBackgroundMonitoring(onComplete: onComplete)
     }
     func stopBackgroundMonitoring() {
         os_log()
-        beaconService.remove(self)
+        removeBeaconServiceListener()
         beaconService.stopBackgroundMonitoring()
     }
 
     // MARK: - Private Methods
+    private func continueBackgroundMonitoring() {
+        if preferencesStorage.isBackgroundMonitoringStarted {
+            setupBeaconServiceListener()
+        }
+    }
     private func setupBackgroundMethodChannel() {
         os_log()
         guard let dispatcherId = CallbackDispatcher.dispatcherId else { return }
@@ -110,6 +118,16 @@ final class MonitoringBackgroundHandler: NSObject {
     }
     private func cacheMonitoringEvent(_ event: FlutterMonitoringResult) {
         pendingMonitoringResults.append(event)
+    }
+}
+
+// MARK: - BeaconService Listener
+private extension MonitoringBackgroundHandler {
+    func setupBeaconServiceListener() {
+        beaconService.add(self)
+    }
+    func removeBeaconServiceListener() {
+        beaconService.remove(self)
     }
 }
 

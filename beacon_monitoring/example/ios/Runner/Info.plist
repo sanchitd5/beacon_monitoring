@@ -22,16 +22,23 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>NSLocationAlwaysAndWhenInUseUsageDescription</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>NSLocationAlwaysUsageDescription</string>
+    <string>A message that tells the user why the app is requesting access to the user’s location information at all times.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>A message that tells the user why the app is requesting access to the user’s location information while the app is running in the foreground.</string>
+    <key>NSBluetoothAlwaysUsageDescription</key>
+    <string>A message that tells the user why the app needs access to Bluetooth.</string>
+    <key>NSBluetoothPeripheralUsageDescription</key>
+    <string>A message that tells the user why the app is requesting the ability to connect to Bluetooth peripherals.</string>
+
+
+
+
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
 	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>NSLocationWhenInUseUsageDescription</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
